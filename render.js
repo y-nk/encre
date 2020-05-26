@@ -25,7 +25,7 @@ module.exports = async (path, { head = _head, index = _index } = {}) => {
     head(document)
 
     document
-      .getElementById('entrypoint')
+      .getElementById('main')
       .innerHTML = data  
   
     return dom.serialize()
@@ -54,7 +54,7 @@ module.exports = async (path, { head = _head, index = _index } = {}) => {
   head(document, meta)
 
   document
-    .getElementById('entrypoint')
+    .getElementById('main')
     .innerHTML = data
 
   return dom.serialize()
