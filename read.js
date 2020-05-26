@@ -5,6 +5,6 @@ module.exports = async path => new Promise((resolve, reject) => {
     if (err)
       reject(err)
 
-    resolve(data.toString('utf-8'))
+    resolve(data)
   })
 })
