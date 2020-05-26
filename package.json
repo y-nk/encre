@@ -1,0 +1,23 @@
+{
+  "name": "encre",
+  "version": "1.0.0",
+  "description": "the simpliest blog engine of nodejs",
+  "author": "Julien Barbay <julien.barbay@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "blog",
+    "engine"
+  ],
+  "bin": {
+    "draft": "./bin/serve.js",
+    "write": "./bin/build.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs-extra": "^9.0.0",
+    "glob": "^7.1.6",
+    "gray-matter": "^4.0.2",
+    "jsdom": "^16.2.2",
+    "marked": "^1.1.0"
+  }
+}
