@@ -6,10 +6,18 @@ const list = require('./posts')
 const post = require('./post')
 
 const layout = require('./layout')
+
+// default renderers
 const _head = require('./head')
 const _index = require('./index')
+const _title = require('./title')
 
-module.exports = async (path, { head = _head, index = _index } = {}) => {
+module.exports = async (path, {
+  head  = _head,  // renderer for <head />
+  index = _index, // renderer for the index's list of posts
+  title = _title  // renderer for the post title (from metadata)
+} = {}) => {
+
   // strip slash
   if (path.startsWith('/'))
     path = path.slice(1)
@@ -55,7 +63,7 @@ module.exports = async (path, { head = _head, index = _index } = {}) => {
 
   document
     .getElementById('main')
-    .innerHTML = data
+    .innerHTML = `${title(meta)} ${data}`
 
   return dom.serialize()
 }
