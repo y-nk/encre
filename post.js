@@ -13,7 +13,10 @@ module.exports = async path => {
 
   // generate markup for content
   const html = marked(content)
-  const data = new JSDOM(html).serialize()
+  
+  const data = `<article>
+    ${new JSDOM(html).serialize()}
+  </article>`
 
   // add absolute url to metadata
   meta.link = link(path)
