@@ -46,7 +46,7 @@ module.exports = async (path, { head = _head, index = _index } = {}) => {
   if (!file)
     return null
 
-  const dom = await layout()
+  const dom = await layout('post')
   const { document } = dom.window
 
   const { meta, data } = await post(file)
