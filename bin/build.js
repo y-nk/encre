@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 // tooling
+const now = Date.now()
+
 const { mkdirSync, copyFile } = require('fs')
-const { outputFile, removeSync } = require('fs-extra')
+const { outputFile, removeSync, ensureFile } = require('fs-extra')
 const { join, resolve } = require('path')
 const glob = require('glob')
 
@@ -15,7 +17,10 @@ const write = async (data, file) => new Promise((resolve, reject) => {
 })
 
 const copy = async (src, dst) => new Promise((resolve, reject) => {
-  copyFile(src, dst, err => !err ? resolve() : reject(err))
+  ensureFile(dst)
+    .then(() => copyFile(src, dst, err => (
+      !err ? resolve() : reject(err)
+    )))
 })
 
 // entrypoint 
@@ -50,7 +55,7 @@ const copy = async (src, dst) => new Promise((resolve, reject) => {
   }
 
   // static files
-  const static = await search(`${process.cwd()}/static/**/!(index.html)`)
+  const static = await search(`${process.cwd()}/static/**/!(index.html|post.html)`)
   const assets = await search(`${process.cwd()}/posts/**/!(*.md)`)
 
   for (const file of static)
@@ -59,5 +64,5 @@ const copy = async (src, dst) => new Promise((resolve, reject) => {
   for (const file of assets)
     await copy(file, join(build, file.replace(`${process.cwd()}/posts`, '')))
 
-  console.log('build complete!')
+  console.log('build complete!', `(${Date.now() - now}ms)`)
 })()
