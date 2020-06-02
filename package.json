@@ -1,6 +1,6 @@
 {
   "name": "encre",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "the simpliest blog engine of nodejs",
   "author": "Julien Barbay <julien.barbay@gmail.com>",
   "license": "MIT",

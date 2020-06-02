@@ -1,7 +1,7 @@
 const { promisify } = require('util')
 const glob = promisify(require('glob'))
 
-const post = require('./renderers/post')
+const post = require('./post')
 
 module.exports = async () => {
   const paths = await glob(`${process.cwd()}/posts/**/*.md`)

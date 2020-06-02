@@ -1,20 +1,11 @@
 #!/usr/bin/env node
-
 const express = require('express')
-const serve = require('../serve')
 
-const { argv } = process
-const args = argv.slice(2)
-const config = args.shift()
-
-const options = config
-  ? require(`${process.cwd()}/${config}`)
-  : {}
+const config = require('./config')
+const router = require('../src/router')
 
 const app = express()
-
-// home page
-app.get('/*', serve(options))
+app.use(router(config))
 
 // main
 const port = process.env.PORT || 9999

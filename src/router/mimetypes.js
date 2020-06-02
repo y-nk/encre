@@ -1,5 +1,3 @@
-const render = require('./render')
-
 const mimetypes = {
   '.js': 'application/javascript',
   '.css': 'text/css',
@@ -16,19 +14,14 @@ const mimetypes = {
   '.webp': 'image/webp',
 }
 
-module.exports = options => async (req, res) => {
+module.exports = (req, res, next) => {
   const { path } = req
-
-  const content = await render(path, options)
 
   const extension = Object.keys(mimetypes)
     .find(extension => path.endsWith(extension))
     
-  if (content && extension)
+  if (extension)
     res.header('Content-Type', mimetypes[extension])
 
-  if (content)
-    res.status(200).end(content)
-  else
-    res.status(404).end()
+  next()
 }

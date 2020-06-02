@@ -25,34 +25,44 @@ const copy = async (src, dst) => new Promise((resolve, reject) => {
 
 // entrypoint 
 ;(async () => {
-  const link = require('../link')
-  const render = require('../render')
-
-  const { argv } = process
-  const args = argv.slice(2)
-  const config = args.shift()
-  
-  const options = config
-    ? require(`${process.cwd()}/${config}`)
-    : {}
-
+  // clean build
   const build = resolve(process.cwd(), './dist')
   removeSync(build)
   mkdirSync(build)
 
+  // start build
+  const config = require('./config')
+
+  const middleware = require('../src/router')
+  const { md2html } = require('../src/convert')
+
   console.log('build destination:', build)
 
-  const index = await render('/', options)
-  await write(index, join(build, '/index.html'))
+  // creating a mock middleware
+  const router = middleware(config)
+
+  // mock request function
+  const render = path => {  
+    router.handle({
+      method: 'get', url: path, path: path,
+    }, {
+      header: () => {},
+
+      async send(html) {
+        await write(html, join(build, path))
+      },
+      
+    }, () => {})
+  }
+
+  // index
+  render('/index.html')
 
   // posts
   const posts = await search(`${process.cwd()}/posts/**/*.md`)
-
-  for (const post of posts) {
-    const href = link(post)
-    const page = await render(href, options)
-    await write(page, join(build, href))
-  }
+  
+  for (const post of posts)
+    render(`/${md2html(post)}`)
 
   // static files
   const static = await search(`${process.cwd()}/static/**/*`)

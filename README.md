@@ -25,7 +25,8 @@ That's all there is to know.
 
 1. `npm install encre`
 2. Create a `posts/` folder
-3. Create a `static/index.html` template file
+3. Create a `layouts/index.html` template file
+4. Create a `static/` folder for your assets
 
 ## Usage
 
