@@ -7,8 +7,12 @@ module.exports = ({ title, description, timestamp } = {}) => {
   if (description)
     hgroup += `<h3>${description}</h3>`
 
-  if (timestamp)
-    hgroup += `<h4>${new Date(timestamp).toISOString()}</h4>`
+  if (timestamp) {
+    const date = new Date(timestamp)
+    const chunks = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+    
+    hgroup += `<h6>${chunks.join('/')}</h6>`
+  }
 
   return !!hgroup.length
     ? `<hgroup>${hgroup}</hgroup>`
