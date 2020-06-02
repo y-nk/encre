@@ -25,20 +25,26 @@ module.exports = async (path, {
 
   // render index
   if (path === '' || path === 'index.html') { 
+    // get posts list
     const posts = await list()
     const metas = posts.map(({ meta }) => meta)
 
+    // generate layout
     const dom = await layout()
     const { document } = dom.window
 
+    // mutate head
     head(document)
 
+    // render
     document
       .getElementById('main')
       .innerHTML = await index(metas)
   
     return dom.serialize()
   }
+
+
 
   // try out assets
   const files = ['static', 'posts']
@@ -55,14 +61,19 @@ module.exports = async (path, {
   if (!file)
     return null
 
+
+
   // get post infos
   const { meta, data } = await post(file)
 
+  // generate layout
   const dom = await layout(meta?.layout ?? 'post')
   const { document } = dom.window
     
+  // mutate
   head(document, meta)
 
+  // render
   document
     .getElementById('main')
     .innerHTML = `${title(meta)} ${data}`
