@@ -25,7 +25,8 @@ module.exports = async (path, {
   // render index
   if (path === '' || path === 'index.html') { 
     const posts = await list()
-    const data = await index(posts)
+    const metas = posts.map(({ meta }) => meta)
+    const data = await index(metas)
 
     const dom = await layout()
     const { document } = dom.window
@@ -54,10 +55,11 @@ module.exports = async (path, {
   if (!file)
     return null
 
-  const dom = await layout('post')
-  const { document } = dom.window
-
+  // get post infos
   const { meta, data } = await post(file)
+
+  const dom = await layout(meta?.layout ?? 'post')
+  const { document } = dom.window
     
   head(document, meta)
 

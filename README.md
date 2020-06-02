@@ -43,6 +43,6 @@ Pass along a `.js` file of your choice which will export a function `head` to ha
 
 When implementing this function, you're supposed to use `document` object to manipulate dom nodes in `<head />` according to the metadata object given. The metadata are the fields placed in the yaml header descriptor of your markdown file, or undefined for the index page (so you only need to define default values).
 
-### index(document, posts): string
+### index(metadata[]): string
 
-This function is made to generate the list of posts in the index file. You will need to create dom nodes according to the given posts array. This array contains all the posts metadata, as written in the yaml header descriptor of each file.
+This function is made to generate the list of posts in the index file. You will need to create dom nodes according to the given array. This array contains all the posts metadata, as written in the yaml header descriptor of each file.
