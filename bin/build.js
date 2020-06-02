@@ -37,6 +37,7 @@ const copy = async (src, dst) => new Promise((resolve, reject) => {
 
   const middleware = require('../src/router')
   const { md2html } = require('../src/convert')
+  const tags = require('../src/data/tags')
 
   console.log('build destination:', build)
 
@@ -62,6 +63,13 @@ const copy = async (src, dst) => new Promise((resolve, reject) => {
 
   // atom feed
   render('/feed.xml')
+
+  // tags list
+  render('/tags/index.html')
+
+  // all the tags
+  Object.keys(await tags())
+    .forEach(tag => render(`/tags/${tag}.html`))
 
   // posts
   const posts = await search(`${process.cwd()}/posts/**/*.md`)

@@ -89,3 +89,10 @@ This function is made to generate the list of posts in the index file. You will 
 
 This function involves generating the title of a post from its metadata. Again, return a dom string representing the post's title. This metadata object contains all the fields written in the yaml header descriptor of each file.
 
+### tags(tags: Record<name: string, metadatas: Object[]>)
+
+This function is used to generate the list of tags and their associated posts. As usual return a dom string to be inserted. The structure will contain the metadata of each post for each tag.
+
+### tag(metadata: Object, name: string>)
+
+This function is used to generate the list of posts for one particular tag. Return a dom string to be inserted. The structure will contain the metadata and the name of the tag.

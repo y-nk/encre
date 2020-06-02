@@ -9,6 +9,9 @@ const { route: index } = require('../modules/index')
 const { route: atom }  = require('../modules/atom')
 const { route: post }  = require('../modules/post')
 
+const { route: tags } = require('../modules/tags')
+const { route: tag }  = require('../modules/tag')
+
 module.exports = options => {
   const router = new Router()
 
@@ -33,6 +36,11 @@ module.exports = options => {
 
   // rss module
   router.get('/feed.xml', atom)
+
+  // tags module
+  router.get('/tags/', tags)
+  router.get('/tags/index.html', tags)
+  router.get('/tags/:name', tag)
 
   // post module
   router.get('/*', post)
