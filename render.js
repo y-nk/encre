@@ -27,7 +27,6 @@ module.exports = async (path, {
   if (path === '' || path === 'index.html') { 
     const posts = await list()
     const metas = posts.map(({ meta }) => meta)
-    const data = await index(metas)
 
     const dom = await layout()
     const { document } = dom.window
@@ -36,7 +35,7 @@ module.exports = async (path, {
 
     document
       .getElementById('main')
-      .innerHTML = data  
+      .innerHTML = await index(metas)
   
     return dom.serialize()
   }
