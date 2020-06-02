@@ -35,6 +35,18 @@ That's all there is to know.
 
 All files in static or posts (except for index.html and *.md) will be automatically copied to the build directory.
 
+## Layouts
+
+All layouts fallback to `index.html` if no other templates are found.
+
+List of available overrides:
+
+```
+layouts/post.html // template for a single post
+layouts/tags.html // template for the tag index
+layouts/tag.html  // template for a single tag page
+```
+
 ## Personalization
 
 Both commands `draft` and `write` take an optional parameter.
