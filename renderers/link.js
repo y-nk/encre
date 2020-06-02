@@ -1,6 +1,3 @@
-module.exports = file => {
-  return file
-    .replace(`${process.cwd()}/posts/`, '')
-    .replace('.md', '.html')
-}
-    
+module.exports = file => file
+  .replace(`${process.cwd()}/posts/`, '')
+  .replace('.md', '.html')
