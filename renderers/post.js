@@ -2,7 +2,7 @@ const matter = require('gray-matter')
 const marked = require('marked')
 const { JSDOM } = require('jsdom')
 
-const read = require('./read')
+const read = require('../read')
 const link = require('./link')
 
 module.exports = async path => {

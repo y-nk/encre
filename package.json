@@ -4,7 +4,7 @@
   "description": "the simpliest blog engine of nodejs",
   "author": "Julien Barbay <julien.barbay@gmail.com>",
   "license": "MIT",
-  "main": "encre.js",
+  "main": "index.js",
   "keywords": [
     "blog",
     "engine"

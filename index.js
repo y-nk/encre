@@ -1,7 +1,2 @@
-module.exports = async posts => {
-  const list = posts
-    .map(({ link, title }) => `<li><a href="${link}">${title}</a></li>`)
-    .join('')
-    
-  return `<ul>${list}</ul>`
-}
+const dom = require('./dom')
+module.exports = { ...dom }

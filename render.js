@@ -3,14 +3,15 @@ const read = require('./read')
 
 const resolve = require('./resolve')
 const list = require('./posts')
-const post = require('./post')
 
 const layout = require('./layout')
 
 // default renderers
-const _head = require('./head')
-const _index = require('./index')
-const _title = require('./title')
+const post = require('./renderers/post')
+
+const _head  = require('./renderers/head')
+const _index = require('./renderers/index')
+const _title = require('./renderers/title')
 
 module.exports = async (path, {
   head  = _head,  // renderer for <head />
