@@ -9,14 +9,14 @@ const layout = require('./layout')
 // default renderers
 const post = require('./renderers/post')
 
-const _head  = require('./renderers/head')
-const _index = require('./renderers/index')
-const _title = require('./renderers/title')
+const $head  = require('./renderers/head')
+const $index = require('./renderers/index')
+const $title = require('./renderers/title')
 
 module.exports = async (path, {
-  head  = _head,  // renderer for <head />
-  index = _index, // renderer for the index's list of posts
-  title = _title  // renderer for the post title (from metadata)
+  head  = $head,  // renderer for <head />
+  index = $index, // renderer for the index's list of posts
+  title = $title  // renderer for the post title (from metadata)
 } = {}) => {
 
   // strip slash
