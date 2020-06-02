@@ -3,7 +3,7 @@ const read = require('./read')
 const has = require('./has')
 
 const static = file => (
-  `${process.cwd()}/static/${file}.html`
+  `${process.cwd()}/layouts/${file}.html`
 )
 
 module.exports = async (layout = 'index') => {

@@ -55,7 +55,7 @@ const copy = async (src, dst) => new Promise((resolve, reject) => {
   }
 
   // static files
-  const static = await search(`${process.cwd()}/static/**/!(index.html|post.html)`)
+  const static = await search(`${process.cwd()}/static/**/*`)
   const assets = await search(`${process.cwd()}/posts/**/!(*.md)`)
 
   for (const file of static)
