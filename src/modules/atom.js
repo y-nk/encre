@@ -1,7 +1,7 @@
 const fetch  = require('../data/posts')
 
 // node generation helper
-const node = (node, data) => (data ? `<${node}>${data}</${node}>` : '')
+const { quickTag } = require('../dom')
 
 // page renderer
 const render = async (website = {}) => {
@@ -19,36 +19,36 @@ const render = async (website = {}) => {
     
   const entries = stamped
     .map(post => (`<entry>
-      ${ node('id', post.link) }
-      ${ node('title', post.title) }
-      ${ node('summary', post.description) }
-      ${ node('link', `${website.url}${post.link}`) }
-      ${ node('updated', new Date(post.timestamp).toISOString()) }
+      ${ quickTag('id', post.link) }
+      ${ quickTag('title', post.title) }
+      ${ quickTag('summary', post.description) }
+      ${ quickTag('link', `${website.url}${post.link}`) }
+      ${ quickTag('updated', new Date(post.timestamp).toISOString()) }
     </entry>`))
     .join('\n')
 
 
-    const categories = website.categories?.map(term => (`
+  const categories = website.categories?.map(term => (`
     <category term="${term}" />
   `)).join('\n')
 
   return `<?xml version="1.0" encoding="utf-8"?>
   <feed xmlns="http://www.w3.org/2005/Atom">
   
-    ${ node('id', website.url) }
-    ${ node('title', website.title) }
-    ${ node('subtitle', website.subtitle) }
-    ${ node('rights', website.rights) }
+    ${ quickTag('id', website.url) }
+    ${ quickTag('title', website.title) }
+    ${ quickTag('subtitle', website.subtitle) }
+    ${ quickTag('rights', website.rights) }
   
-    ${ node('logo', website.logo) }
-    ${ node('icon', website.icon) }
+    ${ quickTag('logo', website.logo) }
+    ${ quickTag('icon', website.icon) }
   
-    ${ node('updated', updated) }
+    ${ quickTag('updated', updated) }
   
     <author>
-      ${ node('name', website.author) }
-      ${ node('email', website.email) }
-      ${ node('uri', website.uri) }
+      ${ quickTag('name', website.author) }
+      ${ quickTag('email', website.email) }
+      ${ quickTag('uri', website.uri) }
     </author>
   
     ${categories}
