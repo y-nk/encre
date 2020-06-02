@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 // tooling
+process.env.NODE_ENV = 'production'
+
 const now = Date.now()
 
 const { mkdirSync, copyFile } = require('fs')
@@ -57,6 +59,9 @@ const copy = async (src, dst) => new Promise((resolve, reject) => {
 
   // index
   render('/index.html')
+
+  // atom feed
+  render('/feed.xml')
 
   // posts
   const posts = await search(`${process.cwd()}/posts/**/*.md`)

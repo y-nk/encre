@@ -6,6 +6,7 @@ const mimetypes = require('./mimetypes')
 const static = require('./static')
 
 const { route: index } = require('../modules/index')
+const { route: atom }  = require('../modules/atom')
 const { route: post }  = require('../modules/post')
 
 module.exports = options => {
@@ -29,6 +30,9 @@ module.exports = options => {
   // index module
   router.get('/', index)
   router.get('/index.html', index)
+
+  // rss module
+  router.get('/feed.xml', atom)
 
   // post module
   router.get('/*', post)

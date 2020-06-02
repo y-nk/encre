@@ -38,12 +38,42 @@ All files in static or posts (except for index.html and *.md) will be automatica
 ## Personalization
 
 Both commands `draft` and `write` take an optional parameter.
-Pass along a `.js` file of your choice which will export a function `head` to handle the `<head />` tag metadatas and/or `index` to handle the list of posts.
+Pass along a `.js` file of your choice which is exporting objects and functions as following:
 
-### head(document, metadata?): void
+### metadata: Object
 
-When implementing this function, you're supposed to use `document` object to manipulate dom nodes in `<head />` according to the metadata object given. The metadata are the fields placed in the yaml header descriptor of your markdown file, or undefined for the index page (so you only need to define default values).
+This object is mandatory for the generation of the atom feed. Some fields are mandatory, some aren't.
 
-### index(metadata[]): string
+```
+{
+  url: string,          // the website base url (for generation of absolute links)
 
-This function is made to generate the list of posts in the index file. You will need to create dom nodes according to the given array. This array contains all the posts metadata, as written in the yaml header descriptor of each file.
+  title?: string        // <title>
+  subtitle?: string     // <subtitle>
+  rights?: string       // <rights>
+
+  logo?: string         // <logo>
+  icon?: string         // <icon>
+
+  author?: string       // <author><name>
+  email?: string        // <author><email>
+  uri?: string          // <author><uri>
+
+  categories?: string[] // will be serialized into a bunch of <category />
+}
+```
+
+### head(document: Document, metadata: Object?): void
+
+This function is handling mutation of the `document.head` according to given metadata.
+
+The metadata are the fields placed in the yaml header descriptor of your markdown file, or undefined for the index page (so you only need to define default values to handle the index).
+
+### index(metadata: Object[]): string
+
+This function is made to generate the list of posts in the index file. You will need to generate a dom string according to the given array. This array contains all the posts metadata, as written in the yaml header descriptor of each file.
+
+### title(metadata: Object): string
+
+This function involves generating the title of a post from its metadata. Again, return a dom string representing the post's title. This metadata object contains all the fields written in the yaml header descriptor of each file.
+
