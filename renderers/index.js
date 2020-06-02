@@ -1,7 +1,9 @@
-module.exports = async posts => {
-  const list = posts
-    .map(({ link, title }) => `<li><a href="${link}">${title}</a></li>`)
-    .join('')
-    
-  return `<ul>${list}</ul>`
+const head = require('./head')
+const index = require('./main')
+
+const title = require('./title')
+module.exports = {
+  head,
+  index,
+  title,
 }

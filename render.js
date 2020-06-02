@@ -8,16 +8,30 @@ const layout = require('./layout')
 
 // default renderers
 const post = require('./renderers/post')
+const renderers  = require('./renderers')
 
-const $head  = require('./renderers/head')
-const $index = require('./renderers/index')
-const $title = require('./renderers/title')
+module.exports = async (path, options = {}) => {
+  // renderers
+  const { head, index, title } = { ...renderers, ...options }
 
-module.exports = async (path, {
-  head  = $head,  // renderer for <head />
-  index = $index, // renderer for the index's list of posts
-  title = $title  // renderer for the post title (from metadata)
-} = {}) => {
+  // page generator
+  const page = async (fetch, name, meta) => {
+    // generate layout
+    const dom = await layout(name)
+    const { document } = dom.window
+
+    // mutate head
+    head(document, meta)
+
+    // render
+    document
+      .getElementById('main')
+      .innerHTML = await fetch()
+  
+    return dom.serialize()
+  }
+
+  // =================================================================
 
   // strip slash
   if (path.startsWith('/'))
@@ -29,22 +43,8 @@ module.exports = async (path, {
     const posts = await list()
     const metas = posts.map(({ meta }) => meta)
 
-    // generate layout
-    const dom = await layout()
-    const { document } = dom.window
-
-    // mutate head
-    head(document)
-
-    // render
-    document
-      .getElementById('main')
-      .innerHTML = await index(metas)
-  
-    return dom.serialize()
+    return page(() => index(metas))
   }
-
-
 
   // try out assets
   const files = ['static', 'posts']
@@ -63,20 +63,11 @@ module.exports = async (path, {
 
 
 
-  // get post infos
   const { meta, data } = await post(file)
 
-  // generate layout
-  const dom = await layout(meta?.layout ?? 'post')
-  const { document } = dom.window
-    
-  // mutate
-  head(document, meta)
-
-  // render
-  document
-    .getElementById('main')
-    .innerHTML = `${title(meta)} ${data}`
-
-  return dom.serialize()
+  return page(
+    () => `${title(meta)} ${data}`,
+    meta?.layout ?? 'post',
+    meta,
+  )
 }
