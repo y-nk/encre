@@ -1,12 +1,14 @@
-module.exports = async (document, posts) => {
-  const ul = document.createElement('ul')
+const { createElement } = require('./dom')
+
+module.exports = async posts => {
+  const ul = createElement('ul')
 
   posts.forEach(({ meta }) => {
-    const a = document.createElement('a')
+    const a = createElement('a')
       a.textContent = meta.title
       a.href = meta.link
       
-    const li = document.createElement('li')
+    const li = createElement('li')
       li.appendChild(a)
       ul.appendChild(li)
   })

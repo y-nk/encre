@@ -23,12 +23,12 @@ module.exports = async (path, {
     path = path.slice(1)
 
   // render index
-  if (path === '' || path === 'index.html') {
+  if (path === '' || path === 'index.html') { 
+    const posts = await list()
+    const data = await index(posts)
+
     const dom = await layout()
     const { document } = dom.window
-  
-    const posts = await list()
-    const data = await index(document, posts)
 
     head(document)
 
