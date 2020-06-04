@@ -2,52 +2,57 @@
 
 An overly simple blog engine, or at least it looks like it.
 
-## Motivation
+### Motivation
 
 Most of the tools i see around are either bloated or not extensible. So I tried my luck.
 This is built to be extensible through an easy inferface "the dom".
 
-- You can pre-build your template the way you want, and target the build to `static/index.html`
-- You can pre-build your css with the tools you want, and also targts to `static/`
-- If you want to minify your build, you're free to add a command to do so post build
+### Scope
 
-## Scope
+1. **DO**: take as little as work to publish something
+2. **DO**: use markdown to write pages 
+3. **DO**: keep all features optional
 
-- Take a `posts/` directory containing markdown files as an input
-- Write static html files as an output
+1. **DONT**: include any kind of framework~ish dependencies
+2. **DONT**: become unhackable, built, typed or anything smelling complex engineering
+3. **DONT**: handle build, optimization or include mandatory opiniated features
+
+## Getting started
+
+### Installation
+
+1. `npm install encre`
+2. `mkdir {layouts,static,posts}`
+3. `echo '<div id="main"></div>' > ./layouts/index.html`
+
+### Development
+
+- `npx draft`
+
+### Build
+
+- `npx write`
+
+All files in static or posts (except for `layouts/*` and `posts/*.md`) will be automatically copied to the build directory.
+
+## Extend
 
 ## Authoring
 
 The markdown files provided is parsed with both `gray-matter` and `marked`.
 That's all there is to know.
 
-## Installation
-
-1. `npm install encre`
-2. Create a `posts/` folder
-3. Create a `layouts/index.html` template file
-4. Create a `static/` folder for your assets
-
-## Usage
-
-- To have a development server running, you can use the command `draft`
-- To have a distribution build ready to deploy, use the command `write`
-
-All files in static or posts (except for index.html and *.md) will be automatically copied to the build directory.
-
 ## Layouts
 
 All layouts fallback to `index.html` if no other templates are found.
 
-List of available overrides:
+List of available templates:
 
-```
-layouts/post.html // template for a single post
-layouts/tags.html // template for the tag index
-layouts/tag.html  // template for a single tag page
-```
+- `layouts/post.html`: template for a single post
+- `layouts/tags.html`: template for the tag index
+- `layouts/tag.html`:  template for a single tag page
 
-## Personalization
+## Renderers
 
 Both commands `draft` and `write` take an optional parameter.
 Pass along a `.js` file of your choice which is exporting objects and functions as following:

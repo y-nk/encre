@@ -2,7 +2,7 @@
 
 ## About architecture
 
-The main strategy is to relay heavily on express routing system.
+The main strategy is to relay heavily on expressjs's routing system.
 
 The development server is configured via a router available in `src/router`.
 Later on, the build uses the same router detached from express with mock request/response objects in order to generate html files. By using the same pipe, we're sure paths and output are matching. 
@@ -17,6 +17,10 @@ If you want to implement a new feature, there are 3 spots to look at:
 2. `./router/index.js`: add your feature to the routing system ; hence the router in 1.
 
 3. `./bin/build`: because routes can be dynamic, we can't list all url in advance and so we need to manually call for the rendering of a certain page.
+
+
+> I actually start to wonder if morphing into a "plugin architecture" by proposing that a module should expose methods such as: `register(app: ExpressRouter)` and `routes(): string[]` would help making step 2. and 3. automated.
+
 
 ## Testing
 
